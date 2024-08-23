@@ -14,15 +14,12 @@ AWS_REGION = "us-east-2"
 SERVICE = "execute-api"
 HOST = "kxm63nv0uk.execute-api.us-east-2.amazonaws.com"
 ENDPOINT = "https://kxm63nv0uk.execute-api.us-east-2.amazonaws.com/Test/generate-accessibility-report"
-REQUEST_PAYLOAD = json.dumps({
-    "html": [
-        '<!DOCTYPE html><html lang="en"><head><title>Test Document 1</title></head><body><h1>Test Page 1</h1><a href="#">Link with no description to test</a></body></html>',
-        '<!DOCTYPE html><html lang="en"><head><title>Test Document 2</title></head><body><h2>Test Page 2</h2><img src="image.jpg" alt=""></body></html>',
-        '<!DOCTYPE html><html lang="en"><head><title>Test Document 3</title></head><body><h3>Test Page 3</h3><button>Click me</button></body></html>',
-        '<!DOCTYPE html><html lang="en"><head><title>Test Document 3</title></head><body><h3>Test Page 4</h3><button>Click me</button></body></html>'
-    ]
-})
+with open('test.html', 'r', encoding='utf-8') as file:
+    html_content = file.read()
 
+REQUEST_PAYLOAD = json.dumps({
+    "html": [html_content]
+})
 amz_date = datetime.datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
 date_stamp = datetime.datetime.utcnow().strftime('%Y%m%d')
 
@@ -59,40 +56,43 @@ headers = {
     'Authorization': authorization_header
 }
 
-print("Headers for the request:")
-for k, v in headers.items():
-    print(f"key: {k}, value: {v}")
+# print("Headers for the request:")
+# for k, v in headers.items():
+#     print(f"key: {k}, value: {v}")
 
 try:
     response = requests.post(ENDPOINT, headers=headers, data=REQUEST_PAYLOAD)
     
-    print("Full Response Details:")
-    print(f"Status Code: {response.status_code}")
-    print("Headers:")
-    for header, value in response.headers.items():
-        print(f"  {header}: {value}")
-    print("Body:")
+    # print("Full Response Details:")
+    # print(f"Status Code: {response.status_code}")
+    # print("Headers:")
+    # for header, value in response.headers.items():
+    #     print(f"  {header}: {value}")
+    # print("Body:")
     print(response.text)
     
-    print("Raw Content:")
-    print(response.content)
+    # print("Raw Content:")
+    # print(response.content)
     
     try:
         json_response = response.json()
-        print("JSON Response (formatted):")
-        print(json.dumps(json_response, indent=2))
+        # print("JSON Response (formatted):")
+        # print(json.dumps(json_response, indent=2))
     except json.JSONDecodeError:
-        print("Response is not JSON decodable")
+        # print("Response is not JSON decodable")
+        a = 1
 
 except requests.exceptions.RequestException as e:
     print(f"An error occurred: {e}")
     if hasattr(e, 'response'):
-        print("Error Response Details:")
-        print(f"Status Code: {e.response.status_code}")
-        print("Headers:")
-        for header, value in e.response.headers.items():
-            print(f"  {header}: {value}")
-        print("Body:")
-        print(e.response.text)
+        # print("Error Response Details:")
+        # print(f"Status Code: {e.response.status_code}")
+        # print("Headers:")
+        # for header, value in e.response.headers.items():
+        #     print(f"  {header}: {value}")
+        # print("Body:")
+        # print(e.response.text)
+        a = 1
     else:
-        print("No response available (likely a connection error)")
+        # print("No response available (likely a connection error)")
+        a = 1

@@ -3,7 +3,14 @@ import hashlib
 import hmac
 import requests
 import json
+from dotenv import load_dotenv
+import os
 
+_ = load_dotenv(dotenv_path='.env')
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY') 
+AWS_REGION = "us-east-2"
 SERVICE = "execute-api"
 HOST = "kxm63nv0uk.execute-api.us-east-2.amazonaws.com"
 ENDPOINT = "https://kxm63nv0uk.execute-api.us-east-2.amazonaws.com/Test/generate-accessibility-report"

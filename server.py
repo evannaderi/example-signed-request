@@ -61,6 +61,11 @@ def process_html(html_content):
 
     try:
         response = requests.post(ENDPOINT, headers=headers, data=REQUEST_PAYLOAD)
+
+        print("Response Status Code:", response.status_code)
+        print("Response Headers:", response.headers)
+        print("Response Content:", response.content)
+
         return response.text
     except requests.exceptions.RequestException as e:
         return f"An error occurred: {str(e)}"
